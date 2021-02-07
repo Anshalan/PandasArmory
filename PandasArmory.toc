@@ -1,0 +1,7 @@
+##Title: Pandas Armory
+##Interface:90002
+##Notes: Nothing really interesting now
+##Author: Anshalan
+##Version: 0.0.1
+
+PandasArmory.lua
