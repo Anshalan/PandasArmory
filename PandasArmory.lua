@@ -8,7 +8,7 @@ function quitButtonFrame(parentFrame)
     quitButtonTexture:SetAllPoints()
     quitButtonTexture:SetTexture("Interface\\AddOns\\PandasArmory\\x.tga")
     quitButton:SetScript("OnClick", function()
-        print("I'm in your buttonz")
+        print("PandasArmory: type /panda1 to reopen the window")
         parentFrame:Hide()
         quitButton:Hide()
     end)
@@ -33,15 +33,20 @@ function mainFrameInit()
     pandasWindow:SetHeight(512) --800
     pandasWindow:SetPoint("CENTER", 0, 0)
     local tex = pandasWindow:CreateTexture("ARTWORK");
-    tex:SetAllPoints();
+    tex:SetAllPoints()
     tex:SetTexture("Interface\\AddOns\\PandasArmory\\MainFrame.tga")
-    pandasWindow.text1 = pandasWindow:CreateFontString(nil,"ARTWORK")
-    pandasWindow.text1:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
-    pandasWindow.text1:SetPoint("CENTER", 0, 0)
+    local headText = pandasWindow:CreateFontString(nil,"ARTWORK")
+    headText:SetFont("Fonts\\MORPHEUS.ttf", 16, "OUTLINE")
+    headText:SetPoint("CENTER", 0, 246)
+    headText:SetTextColor(1,1,1)
+    headText:SetText("Pandas Armory")
+    -- pandasWindow.text1 = pandasWindow:CreateFontString(nil,"ARTWORK")
+    -- pandasWindow.text1:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
+    -- pandasWindow.text1:SetPoint("CENTER", 0, 0)
     local repAchievInfo = {} --[0] = IDNumber, [1] = Name, [2] = Points, [3] = Completed, [4] = Month, [5] = Day, [6] = Year, [7] = Description, [8] = Flags, [9] = Image, [10] = RewardText, [11] = isGuildAch
     repAchievInfo["IDNumber"],repAchievInfo["Name"],repAchievInfo["Points"],repAchievInfo["Completed"],repAchievInfo["Month"],repAchievInfo["Day"],repAchievInfo["Year"],repAchievInfo["Description"],repAchievInfo["Flags"],repAchievInfo["Image"],repAchievInfo["RewardText"],repAchievInfo["isGuildAch"] = GetAchievementInfo(222)
     --repAchievInfo[1] = 2321
-    pandasWindow.text1:SetText(repAchievInfo["Image"])
+    -- pandasWindow.text1:SetText(repAchievInfo["Image"])
     quitButtonFrame(pandasWindow)
     for i=0, 1,1 do
         for j=1,13,1 do --13
@@ -49,7 +54,10 @@ function mainFrameInit()
         end
     end
     pandasWindow:SetAlpha(0.95)
-    pandasWindow:Show()
+    function showMainFrame()
+        pandasWindow:Show()
+        quitButton:Show()
+    end
 end
 
 function achievFrameInit(achievementID,x,y,parentFrame)
@@ -72,7 +80,7 @@ function achievFrameInit(achievementID,x,y,parentFrame)
     achievInfoFrame:SetPoint('TOPLEFT', x+100,  y-220)
     achievInfoFrame:SetSize(48,48)
     achieveTex = achievInfoFrame:CreateTexture("ARTWORK")
-    achieveTex:SetAllPoints();
+    achieveTex:SetAllPoints()
     achieveTex:SetTexture(achievInfoFrame.repAchievInfo["Image"])--IDtoPath[achievInfoFrame.repAchievInfo["Image"]])
 
     if(achievInfoFrame.repAchievInfo["Completed"])
@@ -88,11 +96,11 @@ function achievFrameInit(achievementID,x,y,parentFrame)
         achievCompletionInfo:SetFrameLevel(frameID:GetFrameLevel()+1)
         achievCompletionInfo:SetPoint("TOPLEFT", frameID ,"BOTTOMRIGHT",0, 0)
         -- achievCompletionInfo:SetSize(280,28) 
-        local tex = achievCompletionInfo:CreateTexture("ARTWORK");
-        tex:SetAllPoints();
+        local tex = achievCompletionInfo:CreateTexture("ARTWORK")
+        tex:SetAllPoints()
         tex:SetColorTexture(0.1,0.1,0.1 ,0.7)
         local text1 = achievCompletionInfo:CreateFontString(nil,"ARTWORK")
-        text1:SetFont("Fonts\\ARIALN.ttf", 16    , "OUTLINE")
+        text1:SetFont("Fonts\\ARIALN.ttf", 16, "OUTLINE")
         text1:SetPoint("CENTER", 0, 0)
         if(frameID.repAchievInfo["Completed"])
         then
@@ -125,8 +133,9 @@ mainFrameInit()
 
 SLASH_PANDA1 = "/PANDA1"
 local function pandasWindowHandler(msg)
-    pandasWindow:Show()
-    quitButton:Show()
+    showMainFrame()
+    -- pandasWindow:Show()
+    -- quitButton:Show()
 end
 
 SlashCmdList["PANDA"] = pandasWindowHandler 
