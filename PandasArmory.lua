@@ -1,10 +1,8 @@
-
-
 function quitButtonFrame(parentFrame)
     quitButton  = CreateFrame('Button', "Quit", parentFrame)
     quitButton:SetMovable(true)
     quitButton:EnableMouse(true)
-    quitButton:SetPoint('TOPRIGHT', 0,  0)
+    quitButton:SetPoint('TOPRIGHT', -3,  -3)
     quitButton:SetSize(16,16)
     local quitButtonTexture = quitButton:CreateTexture("ARTWORK")
     quitButtonTexture:SetAllPoints()
@@ -24,7 +22,6 @@ end
 characterAchievementIDInOrder = {6,7,8,9,14782,14783,7382,7383,7384,7380,1176,1177,1178,1180,1181,5455,5456,6753,
                                 891,889,890,5180,14796,14797,545,6614}--546}
     
-
 function mainFrameInit()
     pandasWindow = CreateFrame("Frame", nil, UIParent)
     pandasWindow:SetMovable(true)
@@ -37,7 +34,7 @@ function mainFrameInit()
     pandasWindow:SetPoint("CENTER", 0, 0)
     local tex = pandasWindow:CreateTexture("ARTWORK");
     tex:SetAllPoints();
-    tex:SetTexture("Interface\\AddOns\\PandasArmory\\BaseFrame.tga")
+    tex:SetTexture("Interface\\AddOns\\PandasArmory\\MainFrame.tga")
     pandasWindow.text1 = pandasWindow:CreateFontString(nil,"ARTWORK")
     pandasWindow.text1:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
     pandasWindow.text1:SetPoint("CENTER", 0, 0)
@@ -80,19 +77,15 @@ function achievFrameInit(achievementID,x,y,parentFrame)
 
     if(achievInfoFrame.repAchievInfo["Completed"])
     then
-        -- achieveTex:SetTexture(achievInfoFrame.repAchievInfo["Image"])--IDtoPath[achievInfoFrame.repAchievInfo["Image"]])
     else
         achieveTex:SetDesaturated(1)
-        -- achieveTex:SetColorTexture(0.1,0.1,0.1 ,1)
     end
     achievInfoFrame:Show()
     
     achievInfoFrame:SetScript("OnEnter", function()
         local frameID = GetMouseFocus()
-        --if achievement frame
         achievCompletionInfo  = CreateFrame('Button', frameID , UIParent)
         achievCompletionInfo:SetFrameLevel(frameID:GetFrameLevel()+1)
-        --local scale,x,y=achievIconInfo:GetEffectiveScale(),GetCursorPosition();
         achievCompletionInfo:SetPoint("TOPLEFT", frameID ,"BOTTOMRIGHT",0, 0)
         -- achievCompletionInfo:SetSize(280,28) 
         local tex = achievCompletionInfo:CreateTexture("ARTWORK");
@@ -115,52 +108,25 @@ function achievFrameInit(achievementID,x,y,parentFrame)
                 achievCompletionInfo:SetSize(string.len(achievDesc)*6 + 60,48) 
             end
             text1:SetTextColor(0,0.9,0,1)
-            -- text1:SetText(frameID.repAchievInfo["Name"]..
-            --     " obtained at "..frameID.repAchievInfo["Day"].."/"..
-            --     frameID.repAchievInfo["Month"].."/"..frameID.repAchievInfo["Year"])
         else
             achievMessage = frameID.repAchievInfo["Name"].." not obtained"
             achievPrint = achievMessage
             achievCompletionInfo:SetSize(string.len(achievMessage)*6 + 60,24) 
             text1:SetTextColor(0.6,0.6,0.6)
-            -- text1:SetText(frameID.repAchievInfo["Name"].." not obtained")
         end
-        
         text1:SetText(achievPrint)
-
-        
     end)
     achievInfoFrame:SetScript("OnLeave", function()
         achievCompletionInfo:Hide()
     end)
 end
 
-
-
-
--- SLASH_PANDA1 = "/PANDA1"
-
-
--- local function pandasWindowHandler(msg)
---     message("Hello ".. msg)
---     --pandasWindow:Show()
--- end
-
--- SlashCmdList["PANDA"] = pandasWindowHandler 
-
 mainFrameInit()
-
--- SLASH_PANE1 = "/pane"
--- SlashCmdList.PANE = function(msg)
---     message("Hello ".. msg)
--- end
 
 SLASH_PANDA1 = "/PANDA1"
 local function pandasWindowHandler(msg)
-    -- message("Hello ".. msg)
     pandasWindow:Show()
     quitButton:Show()
-    -- quitButtonFrame:Show()
 end
 
 SlashCmdList["PANDA"] = pandasWindowHandler 
