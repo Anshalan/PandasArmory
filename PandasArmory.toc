@@ -2,6 +2,11 @@
 ##Interface:90002
 ##Notes: Nothing really interesting now
 ##Author: Anshalan
-##Version: 0.0.1
+##Version: 0.1
 
+file1.lua
+# PandasLibrary.lua
+Achievements.lua
+Mounts.lua
+MainFrame.lua
 PandasArmory.lua
