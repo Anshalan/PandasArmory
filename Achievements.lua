@@ -12,12 +12,20 @@ function achievementTabFrame()
         achievementTabFrame.categoryButtons[k] = categoryButton(achievementTabFrame,categoryNames[k+1],k, 12)
         achievementTabFrame.categoryFrames[k] = categoryFrame(achievementTabFrame)
     end
-    achievementCharacterFrame()
-    achievementQuestFrame()
 
-    for i=0, 12, 1  do
-        achievementTabFrame.categoryFrames[i]:Hide()
-    end 
+    --scrollframe
+
+    --scorrlframe
+
+    scrollFrame(achievementTabFrame)
+
+
+    -- achievementCharacterFrame()
+    -- achievementQuestFrame()
+
+    -- for i=0, 12, 1  do
+    --     achievementTabFrame.categoryFrames[i]:Hide()
+    -- end 
     
     return achievementTabFrame
 end
@@ -25,16 +33,18 @@ end
 function achievementCharacterFrame()
     for i=0, 1,1 do
         for j=1,13,1 do --13
-            achievFrameInit(characterAchievementIDInOrder[j+i*13],j*48,i*-48,achievementTabFrame.categoryFrames[0])
+            achievFrameInit(characterAchievementIDInOrder[j+i*13],j*48,i*-48,self.moduleoptions)--achievementTabFrame.categoryFrames[0]])
         end
     end
 end
 function achievementQuestFrame()
-    for i=0, 2,1 do
-        for j=1,11,1 do --13
-            achievFrameInit(questAchievementIDInOrder[j+i*11],j*48,i*-48,achievementTabFrame.categoryFrames[1])
+    for k=1,3,1 do
+        for i=0, 2,1 do
+            for j=1,11,1 do --13
+                achievFrameInit(questAchievementIDInOrder[j+i*11],j*48,(i+3*k)*-48,achievementTabFrame.categoryFrames[1])
+            end
         end
-    end
+    end 
 end
 
 
