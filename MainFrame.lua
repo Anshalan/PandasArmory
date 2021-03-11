@@ -184,10 +184,10 @@ function categoryFrame(parentFrame)
     return categoryFrame
 end
 
-function scrollFrame(parentFrame)
+function scrollFrame(parentFrame, name)
     self = CreateFrame("Frame", nil, parentFrame);
-    self:SetWidth(parentFrame:GetWidth())
-    self:SetHeight(parentFrame:GetHeight())
+    self:SetWidth(1024-136)--(parentFrame:GetWidth())
+    self:SetHeight(440)--(parentFrame:GetHeight())
     self:SetPoint('BOTTOMRIGHT',0,0) 
     -- self = parentFrame
     -- re-size this to whatever size you wish your ScrollFrame to be, at this point
@@ -197,7 +197,7 @@ function scrollFrame(parentFrame)
     self:Show()
 
     -- now create the template Scroll Frame (this frame must be given a name so that it can be looked up via the _G function (you'll see why later on in the code)
-    self.scrollframe =CreateFrame("ScrollFrame", "ANewScrollFrame", self, "UIPanelScrollFrameTemplate");
+    self.scrollframe =CreateFrame("ScrollFrame", name, self, "UIPanelScrollFrameTemplate");
     
     -- create the standard frame which will eventually become the Scroll Frame's scrollchild
     -- importantly, each Scroll Frame can have only ONE scrollchild
@@ -248,7 +248,7 @@ function scrollFrame(parentFrame)
     
     -- create a fontstring or a texture or something like that, then place it at the bottom of the frame that holds your info (in this case self.moduleoptions)
 
-    self.moduleoptions.tab2 = achievementCharacterFrame()
+    -- self.moduleoptions.tab2 = achievementQuestFrame()
     -- self.moduleoptions.fontstring = self.moduleoptions:CreateFontString(self.moduleoptions,"OVERLAY", UIParent)
     -- self.moduleoptions.fontstring:SetFont("Fonts\\FRIZQT__.ttf", 12, "OUTLINE")
     -- self.moduleoptions.fontstring:SetTextColor(0.9,0.9,0)
@@ -256,6 +256,7 @@ function scrollFrame(parentFrame)
     -- self.moduleoptions.fontstring:SetText("This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.This is a test.");
     -- self.moduleoptions
     -- you should now need to scroll down to see the text "This is a test."
+    return self--self.moduleoptions
 end
 
 

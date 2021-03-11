@@ -7,11 +7,6 @@ questAchievementIDInOrder = {503,504,505,506,507,508,32,978,973,974,975,976,977,
 collectMounts = {246,292,521, 548, 477, 1167, 1191, 664}      
 mainFrameCreate()
 
-
-
-
-
-
 -- local frameHolder;
  
 -- -- create the frame that will hold all other frames/objects:

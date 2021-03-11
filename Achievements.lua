@@ -8,43 +8,37 @@ function achievementTabFrame()
     achievementTabFrame = tabFrame()
     achievementTabFrame.categoryButtons = {}
     achievementTabFrame.categoryFrames = {}
+    achievementTabFrame.scrollFrames = {}
+    -- achievementTabFrame.scrollFrame = scrollFrame(achievementTabFrame)
     for k=0, 12, 1  do
         achievementTabFrame.categoryButtons[k] = categoryButton(achievementTabFrame,categoryNames[k+1],k, 12)
         achievementTabFrame.categoryFrames[k] = categoryFrame(achievementTabFrame)
+        achievementTabFrame.scrollFrames[k] = scrollFrame(achievementTabFrame.categoryFrames[k],"scrollframe"..k)
     end
-
-    --scrollframe
-
-    --scorrlframe
-
-    scrollFrame(achievementTabFrame)
-
-
-    -- achievementCharacterFrame()
+    
+    achievementCharacterFrame(achievementTabFrame.scrollFrames[0].moduleoptions)
+    achievementQuestFrame(achievementTabFrame.scrollFrames[1].moduleoptions)
     -- achievementQuestFrame()
-
-    -- for i=0, 12, 1  do
-    --     achievementTabFrame.categoryFrames[i]:Hide()
-    -- end 
+    for k=0, 12, 1  do
+        achievementTabFrame.categoryFrames[k]:Hide()
+    end
     
     return achievementTabFrame
 end
 
-function achievementCharacterFrame()
+function achievementCharacterFrame(parentFrame)
     for i=0, 1,1 do
         for j=1,13,1 do --13
-            achievFrameInit(characterAchievementIDInOrder[j+i*13],j*48,i*-48,self.moduleoptions)--achievementTabFrame.categoryFrames[0]])
+            achievFrameInit(characterAchievementIDInOrder[j+i*13],j*48,i*-48,parentFrame)--achievementTabFrame.categoryFrames[0]])
         end
     end
 end
-function achievementQuestFrame()
-    for k=1,3,1 do
-        for i=0, 2,1 do
-            for j=1,11,1 do --13
-                achievFrameInit(questAchievementIDInOrder[j+i*11],j*48,(i+3*k)*-48,achievementTabFrame.categoryFrames[1])
-            end
+function achievementQuestFrame(parentFrame)
+    for i=0, 2,1 do
+        for j=1,11,1 do --13
+            achievFrameInit(questAchievementIDInOrder[j+i*11],j*48,i*-48,parentFrame)--achievementTabFrame.categoryFrames[1])
         end
-    end 
+    end    
 end
 
 
