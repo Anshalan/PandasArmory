@@ -27,11 +27,18 @@ function achievementTabFrame()
 end
 
 function achievementCharacterFrame(parentFrame)
-    for i=0, 1,1 do
-        for j=1,13,1 do --13
-            achievFrameInit(characterAchievementIDInOrder[j+i*13],j*48,i*-48,parentFrame)--achievementTabFrame.categoryFrames[0]])
-        end
+    parentFrame.text1 = parentFrame:CreateFontString(nil,"ARTWORK")
+    parentFrame.text1:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
+    parentFrame.text1:SetPoint("TOPLEFT",0,0)
+    parentFrame.text1:SetText("Character")
+    for i = 1, 8,1 do
+        achievFrameInit(characterAchievement[1][i],(i-1)*48,0,parentFrame)--achievementTabFrame.categoryFrames[0]])
     end
+    -- for i=0, 1,1 do
+    --     for j=1,13,1 do --13
+    --         achievFrameInit(characterAchievement[1][j+i*13],j*48,i*-48,parentFrame)--achievementTabFrame.categoryFrames[0]])
+    --     end
+    -- end
 end
 function achievementQuestFrame(parentFrame)
     for i=0, 2,1 do
@@ -59,7 +66,7 @@ function achievFrameInit(achievementID,x,y,parentFrame)
         achievInfoFrame.repAchievInfo["Image"],
         achievInfoFrame.repAchievInfo["RewardText"],
         achievInfoFrame.repAchievInfo["isGuildAch"] = GetAchievementInfo(achievementID)
-    achievInfoFrame:SetPoint('TOPLEFT', x+100,  y-120)
+    achievInfoFrame:SetPoint('TOPLEFT', x+10,  y-12)
     achievInfoFrame:SetSize(48,48)
     achievInfoFrame.achieveTex = achievInfoFrame:CreateTexture("ARTWORK")
     achievInfoFrame.achieveTex:SetAllPoints()
