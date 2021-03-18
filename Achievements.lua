@@ -2,8 +2,8 @@ local PandasArmory, NS = ...
 
 categoryNames = {"Character", "Quest", "Exploration", "Player vs. Player", "Dungeons & Raids", "Professions", "Reputations",
                 " World Events", "Pet Battles", "Collections", "Expansion Features", "Feast of Strength", "Legacy"}
-categoryFrames = {"Character", "Quest", "Exploration", "Player vs. Player", "Dungeons & Raids", "Professions", "Reputations",
-" World Events", "Pet Battles", "Collections", "Expansion Features", "Feast of Strength", "Legacy"}
+-- categoryFrames = {"Character", "Quest", "Exploration", "Player vs. Player", "Dungeons & Raids", "Professions", "Reputations",
+--                 " World Events", "Pet Battles", "Collections", "Expansion Features", "Feast of Strength", "Legacy"}
 function achievementTabFrame()
     achievementTabFrame = tabFrame()
     achievementTabFrame.categoryButtons = {}
@@ -13,7 +13,7 @@ function achievementTabFrame()
     for k=0, 12, 1  do
         achievementTabFrame.categoryButtons[k] = categoryButton(achievementTabFrame,categoryNames[k+1],k, 12)
         achievementTabFrame.categoryFrames[k] = categoryFrame(achievementTabFrame)
-        achievementTabFrame.scrollFrames[k] = scrollFrame(achievementTabFrame.categoryFrames[k],"scrollframe"..k)
+        achievementTabFrame.scrollFrames[k] = scrollFrame(achievementTabFrame.categoryFrames[k],"scrollframeAchievement"..k)
     end
     
     achievementCharacterFrame(achievementTabFrame.scrollFrames[0].moduleoptions)
@@ -25,27 +25,29 @@ function achievementTabFrame()
     
     return achievementTabFrame
 end
+function createAchievementGroup(groupName,i,categoryName,parentFrame)
+    local textFieldName = "text"..i
+    parentFrame.textFieldName = fontStringWithOffsets(parentFrame, 2, (i*3-3), groupName)
+    for key,value in pairs(achievements[categoryName][i]) do
+        achievFrameInit(achievements[categoryName][i][key],key*48,(-(i*3-3)*24)-16,parentFrame)
+    end
+end
 
 function achievementCharacterFrame(parentFrame)
-    parentFrame.text1 = parentFrame:CreateFontString(nil,"ARTWORK")
-    parentFrame.text1:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
-    parentFrame.text1:SetPoint("TOPLEFT",0,0)
-    parentFrame.text1:SetText("Character")
-    for i = 1, 8,1 do
-        achievFrameInit(characterAchievement[1][i],(i-1)*48,0,parentFrame)--achievementTabFrame.categoryFrames[0]])
-    end
-    -- for i=0, 1,1 do
-    --     for j=1,13,1 do --13
-    --         achievFrameInit(characterAchievement[1][j+i*13],j*48,i*-48,parentFrame)--achievementTabFrame.categoryFrames[0]])
-    --     end
-    -- end
+    createAchievementGroup("Character", 1, "characterAchievements",parentFrame)
+    createAchievementGroup("Gold", 2, "characterAchievements",parentFrame)
+    createAchievementGroup("Mounts", 3, "characterAchievements",parentFrame)
+    createAchievementGroup("Items", 4, "characterAchievements",parentFrame)
+    createAchievementGroup("Others", 5, "characterAchievements",parentFrame)
 end
 function achievementQuestFrame(parentFrame)
-    for i=0, 2,1 do
-        for j=1,11,1 do --13
-            achievFrameInit(questAchievementIDInOrder[j+i*11],j*48,i*-48,parentFrame)--achievementTabFrame.categoryFrames[1])
-        end
-    end    
+    createAchievementGroup("Regular Counts", 1, "questAchievementRegular", parentFrame)
+    createAchievementGroup("Daily Counts", 2, "questAchievementRegular", parentFrame)
+    createAchievementGroup("Dungeon Counts", 3, "questAchievementRegular", parentFrame)
+    createAchievementGroup("Themes", 4, "questAchievementRegular", parentFrame)
+    createAchievementGroup("World", 5, "questAchievementRegular", parentFrame)
+    createAchievementGroup("Other", 6, "questAchievementRegular", parentFrame)
+    createAchievementGroup("Exile's Reach", 7, "questAchievementRegular", parentFrame)
 end
 
 
@@ -66,7 +68,7 @@ function achievFrameInit(achievementID,x,y,parentFrame)
         achievInfoFrame.repAchievInfo["Image"],
         achievInfoFrame.repAchievInfo["RewardText"],
         achievInfoFrame.repAchievInfo["isGuildAch"] = GetAchievementInfo(achievementID)
-    achievInfoFrame:SetPoint('TOPLEFT', x+10,  y-12)
+    achievInfoFrame:SetPoint('TOPLEFT', x, y)
     achievInfoFrame:SetSize(48,48)
     achievInfoFrame.achieveTex = achievInfoFrame:CreateTexture("ARTWORK")
     achievInfoFrame.achieveTex:SetAllPoints()

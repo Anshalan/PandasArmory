@@ -1,28 +1,47 @@
 local PandasArmory, NS = ...
 
-
+mountsCategories = {"General","Shadowlands","Battle for Azeroth", "Legion","Warlords of Draenor","Mist of Pandaria",
+                    "Cataclysm","Wrath of the Lich King","The Burning Crusade", "Classic", "Racial", "Professions","PVP",
+                    "World Events", "Promotions", "Other"}  
 function mountTabFrame()
     mountTabFrame = tabFrame()
-    mountTabFrame.categoryButtons = {"General"}
-    mountTabFrame.categoryFrames = {"General"}
-        mountTabFrame.categoryButtons[0] = categoryButton(mountTabFrame,mountTabFrame.categoryButtons[1],0, 0)
-        mountTabFrame.categoryFrames[0] = categoryFrame(mountTabFrame)
-     for i=0, 1,1 do
-        for j=1,4,1 do --13
-            mountFrameInit(collectMounts[j+i*4],j*48,i*-48,mountTabFrame)
-        end
+    mountTabFrame.categoryButtons = {}
+    mountTabFrame.categoryFrames = {}
+    mountTabFrame.scrollFrames = {}
+    for i = 0, 15, 1 do
+        mountTabFrame.categoryButtons[i] = categoryButton(mountTabFrame,mountsCategories[i+1],i, 15)
+        mountTabFrame.categoryFrames[i] = categoryFrame(mountTabFrame)
+        mountTabFrame.scrollFrames[i] = scrollFrame(mountTabFrame.categoryFrames[i],"scrollframeMount"..i)
     end
+    
+    mountGeneralFrame(mountTabFrame.scrollFrames[0].moduleoptions)
+    -- for i=0, 1,1 do
+    --     for j=1,4,1 do --13
+    --         mountFrameInit(collectMounts[j+i*4],j*48,i*-48,mountTabFrame)
+    --     end
+    -- end
 
     mountTabFrame.categoryFrames[0]:Hide()
 
     return mountTabFrame
 end
-function mountGeneral() --rly this function name will need a change
-    for i=0, 1,1 do
-        for j=1,4,1 do --13
-            mountFrameInit(collectMounts[j+i*4],j*48,i*-48,mountTabFrame.categoryFrames[0])
-        end
+function mountGeneralFrame(parentFrame) --rly this function name will need a change
+    parentFrame.text1 = fontStringWithOffsets(parentFrame, 2, 0, "Character")
+    for key,value in pairs(mounts["mountsGeneral"]) do
+        mountFrameInit(mounts["mountsGeneral"][1][key],key*48,(-0*24)-16,parentFrame)
     end
+    parentFrame.text1 = fontStringWithOffsets(parentFrame, 2, 3, "Reputations")
+    -- for i=1,1,1 do 
+    --     mountFrameInit(mountsGeneral[2][i],i*48,(-3*24)-16,parentFrame)
+    -- end
+    parentFrame.text1 = fontStringWithOffsets(parentFrame, 2, 6, "Toys")
+    -- for i=1,1,1 do 
+    --     mountFrameInit(mountsGeneral[3][i],i*48,(-6*24)-16,parentFrame)
+    -- end
+    parentFrame.text1 = fontStringWithOffsets(parentFrame, 2, 9, "Heirlooms")
+    -- for i=1,1,1 do 
+    --     mountFrameInit(mountsGeneral[4][i],i*48,(-9*24)-16,parentFrame)
+    -- end
 end
 
 function mountFrameInit(mountID,x,y,parentFrame)
@@ -30,7 +49,7 @@ function mountFrameInit(mountID,x,y,parentFrame)
     mountInfoFrame:SetMovable(true)
     mountInfoFrame:EnableMouse(true)
     mountInfoFrame.repMountInfo = {}
-        mountInfoFrame.repMountInfo["name"],
+    mountInfoFrame.repMountInfo["name"],
         mountInfoFrame.repMountInfo["spellID"],
         mountInfoFrame.repMountInfo["icon"],
         mountInfoFrame.repMountInfo["isActive"],
@@ -42,7 +61,7 @@ function mountFrameInit(mountID,x,y,parentFrame)
         mountInfoFrame.repMountInfo["shouldHideOnChar"],
         mountInfoFrame.repMountInfo["isCollected"],
         mountInfoFrame.repMountInfo["mountID"] = C_MountJournal.GetMountInfoByID(mountID)
-        mountInfoFrame:SetPoint('TOPLEFT', x+100,  y-120)
+        mountInfoFrame:SetPoint('TOPLEFT', x,  y)
         mountInfoFrame:SetSize(48,48)
     local MountTex = mountInfoFrame:CreateTexture("ARTWORK")
     MountTex:SetAllPoints()

@@ -183,6 +183,13 @@ function categoryFrame(parentFrame)
     -- tex:SetAllPoints()
     return categoryFrame
 end
+function fontStringWithOffsets(parentFrame, xOffset, yOffset, string)
+    local text = parentFrame:CreateFontString(nil,"ARTWORK")
+    text:SetFont("Fonts\\ARIALN.ttf", 15, "OUTLINE")
+    text:SetPoint("TOPLEFT",24*xOffset,(-24*yOffset))
+    text:SetText(string)
+    return text
+end
 
 function scrollFrame(parentFrame, name)
     self = CreateFrame("Frame", nil, parentFrame);
